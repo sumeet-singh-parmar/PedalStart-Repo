@@ -1,0 +1,978 @@
+/* ==========================================================================
+   1. CSS Variables & Base Styles
+   ========================================================================== */
+:root {
+    --accent-color: #37A75F;
+    --background-color: transparent;
+    --text-color: #111111;
+    --border-color: #DDDDDD;
+    --card-background: #FFFFFF;
+    --heading-font: 'Montserrat', sans-serif;
+    --accent-font: 'Architects Daughter', sans-serif;
+    --body-font: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+/* ==========================================================================
+   11. Background Grain Effect (grained.js)
+   ========================================================================== */
+
+#grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  z-index: -9998;
+  transform: translateZ(0);
+}
+
+#grain::before {
+  content: "";
+  top: -10rem;
+  left: -10rem;
+  width: calc(100% + 20rem);
+  height: calc(100% + 20rem);
+  z-index: -9999;
+  position: fixed;
+  background-image: url(https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTExL3Jhd3BpeGVsb2ZmaWNlNl9hX2ZsYXRfdGV4dHVyZV9vZl9icm93bl9jYXJkYm9hcmRfd2l0aF9zbWFsbF9jb18yNmEyZjU0ZC0xNjRhLTQwNGMtOGY1YS03YWQ1ZDI4MjBhMzkucG5n.png);
+  opacity: 0.07;
+  pointer-events: none;
+  animation: noise 1s steps(2) infinite;
+}
+
+@keyframes noise {
+  0%   { transform: translate3d(0, 9rem, 0); }
+  10%  { transform: translate3d(-1rem, -4rem, 0); }
+  20%  { transform: translate3d(-8rem, 2rem, 0); }
+  30%  { transform: translate3d(9rem, -9rem, 0); }
+  40%  { transform: translate3d(-2rem, 7rem, 0); }
+  50%  { transform: translate3d(-9rem, -4rem, 0); }
+  60%  { transform: translate3d(2rem, 6rem, 0); }
+  70%  { transform: translate3d(7rem, -8rem, 0); }
+  80%  { transform: translate3d(-9rem, 1rem, 0); }
+  90%  { transform: translate3d(6rem, -5rem, 0); }
+  100% { transform: translate3d(-7rem, 0, 0); }
+}
+
+
+/* ==========================================================================
+   2. Custom Cursor
+   ========================================================================== */
+/* Hide the default system cursor */
+/* body, a, button {
+    cursor: none;
+} */
+
+.cursor-dot,
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    background-color: hsla(143, 56%, 53%, 0.2);
+    transition: 
+        transform 0.2s ease-out, 
+        background-color 0.2s ease-out,
+        width 0.3s ease-out,
+        height 0.3s ease-out;
+}
+
+/* For this effect, your base .cursor-outline should be white */
+/* .cursor-outline { border: 2px solid white; ... } */
+
+.cursor-outline.hover {
+  /* Make it larger to emphasize the effect */
+  transform: translate(-50%, -50%) scale(2);
+  mix-blend-mode: difference;
+  background-color: white;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   3. Header & Navigation
+   ========================================================================== */
+header {
+    background-color: rgba(255, 255, 255, 0.24);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transition: all 0.2s linear;
+}
+
+#header.hover {
+    background-color: white;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--heading-font);
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    line-height: 1;
+}
+
+.logo .logo-invest {
+    font-family: var(--accent-font);
+    color: var(--accent-color);
+    font-weight: 400;
+}
+
+.nav-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: var(--accent-color);
+    color: white;
+    font-family: var(--heading-font);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 16px 8px 8px;
+    border-radius: 1000px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button .icon-container {
+    background: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+/* ==========================================================================
+   4. Hero Section
+   ========================================================================== */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.main-title {
+    font-size: 55px;
+    font-weight: 400;
+    line-height: 1.3em;
+    text-align: center;
+}
+
+.main-title .word {
+    display: inline-block;
+    margin: 0 0.1em;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+.main-title .word:nth-child(1) { animation-delay: 0.1s; }
+.main-title .word:nth-child(2) { animation-delay: 0.2s; }
+.main-title .word:nth-child(3) { animation-delay: 0.3s; }
+.main-title .word:nth-child(4) { animation-delay: 0.4s; }
+
+.accent-title {
+    color: var(--accent-color);
+}
+
+.subtitle-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.5s 0.6s forwards;
+}
+
+.brand-name {
+    font-family: var(--heading-font);
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.dash, .pedal {
+    color: var(--text-color);
+}
+
+.invest {
+    font-family: var(--accent-font);
+    color: var(--accent-color);
+}
+
+.subtitle {
+    font-family: var(--heading-font);
+    font-size: 17px;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   ABOUT SECTION (Premium Redesign)
+   ========================================================================== */
+
+/* The section container */
+.about {
+    padding: 100px 20px;
+}
+
+/* The large headline at the top */
+.about-hero {
+    max-width: 1300px; /* Constrain line length for readability */
+    margin-bottom: 4rem;
+}
+
+.about-title {
+    font-family: var(--heading-font);
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+}
+
+/* The accent text style from other sections for cohesion */
+.highlight-accent {
+    font-family: var(--accent-font);
+    color: var(--accent-color);
+    font-weight: 400;
+}
+
+/* The grid for the cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* The new, refined card design */
+.info-card {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-title {
+  font-family: var(--heading-font);
+  font-size: 23px;
+  color: #222;
+}
+
+.card-description {
+  font-family: var(--accent-font);
+  font-size: 23px;
+  color: #153fa3;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.card-arrow {
+  margin: 1rem 0;
+}
+
+.card-arrow img {
+  transform: rotate(-90deg) scaleX(-1);
+  width: 40px;
+  height: auto;
+  stroke: #6c63ff; /* accent color */
+  opacity: 0.8;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-title {
+        font-size: 32px;
+    }
+}
+
+/* ==========================================================================
+   6. Expect Section
+   ========================================================================== */
+.expect {
+    padding: 100px 20px;
+}
+
+/* The large headline at the top */
+.expect-hero {
+    max-width: 1300px; /* Constrain line length for readability */
+    margin-bottom: 4rem;
+}
+
+.expect-title {
+    font-family: var(--heading-font);
+    font-size: 55px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+}
+
+.expect-item {
+    margin-bottom: 3rem;
+}
+
+.expect-item .heading {
+    font-family: var(--heading-font);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #333333;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5em;
+}
+
+.expect-item .description {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.4em;
+    max-width: 1100px;
+}
+
+.marquee-container {
+    margin-top: 2rem;
+    background-color: transparent;
+    height: 25em;
+    font-family: "Inter", sans-serif;
+}
+.profile-card {
+            width: 340px;
+            background: transparent;
+            color: #1a202c; /* Dark text for readability */
+            
+            /* Clean border and rounded corners */
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+
+            /* Soft shadow for a subtle "lifted" effect */
+            box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+            
+            /* Generous padding for a spacious, premium feel */
+            padding: 30px;
+            box-sizing: border-box;
+
+            /* Smooth transition for the hover effect */
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            margin: 0 20px;
+            text-wrap: auto;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            /* On hover, enhance the shadow and add a vibrant "glow" border */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12), 0 0 0 2px var(--accent-color);
+        }
+
+
+        /* --- Card Header: Image & Name --- */
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 3px solid #e2e8f0; /* Light grey border */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: border-color 0.4s ease;
+        }
+
+        .profile-card:hover .profile-image {
+            border-color: var(--accent-color); /* Match the accent color on hover */
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 1px;
+            font-family: var(--accent-font);
+            color: #262a5c;
+        }
+
+
+        /* --- Card Body: Role, Company, Logo --- */
+        .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .details {
+            line-height: 1.5;
+            flex: 1; /* Allows this container to grow and fill the available space */
+            min-width: 0; /* A key fix that allows long text inside to wrap correctly in a flex container */
+            padding-right: 16px; /* Adds a safe space between the text and the logo */
+        }
+
+        .details .role {
+            font-family: var(--accent-font);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent-color); /* The accent color for the primary detail */
+            margin: 0;
+        }
+
+        .details .company {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #718096; /* A muted grey for secondary info */
+            margin: 0;
+        }
+
+        .company-logo {
+            position: relative; /* This is crucial for positioning the popup */
+        }
+
+        .company-logo svg {
+            width: 48px;
+            height: 48px;
+            fill: #a0aec0;
+            transition: fill 0.4s ease, transform 0.4s ease;
+        }
+
+        .profile-card:hover .company-logo svg {
+            fill: #eb9a45;
+            transform: scale(1.1);
+        }
+
+        /* --- NEW: Style for the Mentor Popup --- */
+        .mentor-popup {
+            /* Positioning */
+            position: absolute;
+            bottom: 100%; /* Position it directly above the logo */
+            left: 50%;
+            
+            /* Center it and add a small gap */
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+
+            /* Appearance */
+            background-color: #2d3748; /* Dark background */
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap; /* Prevent "Mentor" from breaking into two lines */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+            /* --- Initial State (Hidden) --- */
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, 10px); /* Start 10px lower for a slide-up effect */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- MODIFICATION: Show the popup when hovering the card --- */
+        .profile-card:hover .mentor-popup {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0); /* Move to its final position */
+        }
+
+  /* ==========================================================================
+      Expect Item - 2
+   ========================================================================== */
+/* This turns the grid into a single, centered row. */
+.events-grid {
+    height: 100vh; /* Makes the container take up the full viewport height */
+    width: 100%;
+    display: grid;
+    /* We create a 4x4 grid to precisely place our 3 images */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 1rem; /* A small gap between grid areas */
+    padding: 1rem;
+    margin-top: 6em;
+    background-color: transparent; /* A dark background makes images pop */
+    box-sizing: border-box; /* Ensures padding is included in the total height/width */
+}
+
+/* --- General Card Styling --- */
+.event-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.9); /* A clean white border to define each photo */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    
+    /* Smooth transition for the hover effect */
+    /* Note the delay on the z-index for a smoother exit animation */
+    transition: transform 0.4s ease, z-index 0s ease 0.2s;
+}
+
+/* --- Image Styling --- */
+.event-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures images fill their container without distortion */
+}
+
+/* --- COLLAGE PLACEMENT using CSS Grid --- */
+/* We assign each card to a specific area within our 4x4 grid */
+
+/* Card 1: Top-left, larger */
+.event-card:nth-child(1) {
+    grid-column: 1 / span 3; /* Starts at column 1, spans 3 columns */
+    grid-row: 1 / span 2;    /* Starts at row 1, spans 2 rows */
+    z-index: 1;
+}
+
+/* Card 2: Bottom-right, medium, and on top by default */
+.event-card:nth-child(2) {
+    grid-column: 3 / span 2;
+    grid-row: 2 / span 3;
+    z-index: 2; /* This card starts above the others */
+}
+
+/* Card 3: Bottom-left, medium */
+.event-card:nth-child(3) {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 2;
+    z-index: 1;
+}
+
+/* --- INTERACTIVE HOVER EFFECT --- */
+.event-card:hover {
+    z-index: 10; /* Bring the hovered card to the very front */
+    transform: scale(1.04) rotate(1deg); /* Scale up and add a slight tilt */
+    transition: transform 0.3s ease, z-index 0s ease 0s; /* Make the z-index change instant on hover */
+}
+
+/* ==========================================================================
+        Visionary Section
+   ========================================================================== */
+
+.visionary {
+    padding: 100px 20px;
+}
+
+/* The large headline at the top */
+.visionary-hero {
+    max-width: 1300px; /* Constrain line length for readability */
+    margin-bottom: 4rem;
+}
+
+.visionary-title {
+    font-family: var(--heading-font);
+    font-size: 55px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+}
+
+.visionary-item {
+    display: flex;
+    align-items: center;  /* Vertically aligns the logo with the text block */
+    gap: 2.5rem;          /* Sets the space between the logo and the text */
+}
+
+.visionary-item .heading {
+    font-family: var(--heading-font);
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5em;
+}
+
+.visionary-item .description {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.4em;
+    max-width: 1100px;
+}
+
+/* The SVG icon itself */
+.chat-logo-container img {
+  width: 9em;
+  height: 9em;
+  object-fit: contain;
+  fill: var(--accent-color); /* White icon */
+}
+
+/* --- Main container for the section --- */
+.visionary-item-image {
+    margin-top: 5em;
+}
+
+/* --- The Bento Grid Container --- */
+.bento-grid {
+    display: grid;
+    height: 100vh; /* Fills the entire screen height */
+    width: 100%;
+    
+    /* We create a 2x2 grid */
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    
+    gap: 1rem; /* The space that keeps the images separate */
+    padding: 1rem;
+    box-sizing: border-box; /* Ensures padding is included in the dimensions */
+}
+
+/* --- Styling for each grid item --- */
+.bento-item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.bento-item:hover {
+    transform: scale(1.025); /* A subtle zoom on hover */
+}
+
+.bento-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the container without distortion */
+}
+
+/* --- Grid Placement for the Bento Effect --- */
+
+/* 1. The first item is the large "hero" image */
+.bento-item:nth-child(1) {
+    /* It starts at column line 1 and ends at line 2 */
+    grid-column: 1 / 2;
+    /* It starts at row line 1 and spans across both rows to end at line 3 */
+    grid-row: 1 / 3;
+}
+
+/* 2. The second item fills the top-right cell */
+.bento-item:nth-child(2) {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+/* 3. The third item fills the bottom-right cell */
+.bento-item:nth-child(3) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+/* ==========================================================================
+   8. Footer
+   ========================================================================== */
+
+   .footer {
+      padding: 100px 20px;
+  }
+
+  /* The large headline at the top */
+  .footer-hero {
+      max-width: 1300px; /* Constrain line length for readability */
+      margin-bottom: 4rem;
+  }
+
+  .footer-title {
+      font-family: var(--heading-font);
+      font-size: 55px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--text-color);
+      letter-spacing: -0.01em;
+  }
+
+  .footer-item {
+      display: flex;
+      align-items: center;  /* Vertically aligns the logo with the text block */
+      gap: 2.5rem;          /* Sets the space between the logo and the text */
+  }
+
+  .footer-item .heading {
+      font-family: var(--heading-font);
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5em;
+  }
+
+  .footer-item .description {
+      font-family: "Montserrat", sans-serif;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.4em;
+      max-width: 1100px;
+  }
+
+  /* ==========================================================================
+       Mail Footer
+   ========================================================================== */
+
+      .mail {
+            padding: 25px 20px;
+            border-top: 1px solid #ccc;
+            font-family: "Montserrat", sans-serif;
+          }
+
+          .mail-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            color: #232323;
+          }
+
+          .mail-left strong {
+            font-weight: 600;
+          }
+
+          .mail-right a {
+            margin-left: 1em;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+          }
+
+          .mail-right img {
+            backdrop-filter: blur(10px);
+            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            transition: transform 0.2s;
+          }
+
+          .mail-right a:hover img {
+            transform: scale(1.2);
+          }
+
+/* ==========================================================================
+   9. Animations
+   ========================================================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes framer-shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -100% center;
+  }
+}
+
+/* ==========================================================================
+   10. Media Queries
+   ========================================================================== */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 28px;
+    }
+    
+    .handwriting {
+        font-size: 28px;
+    }
+    
+    .brand-name {
+        font-size: 16px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .expect h2,
+    .mentors h2,
+    .final-cta h2 {
+        font-size: 28px;
+    }
+
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .mentor-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 24px;
+    }
+    
+    .handwriting {
+        font-size: 24px;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .mentor-card h4 {
+        font-size: 16px;
+    }
+}
+
+/* Left-side scroll indicator styles */
+.scroll-indicator {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 2000;
+    width: 60px;
+    pointer-events: none;
+}
+.scroll-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--heading-font);
+    font-size: 14px;
+    color: #37A75F;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+}
+.scroll-arrow {
+    font-size: 24px;
+    color: #37A75F;
+    animation: arrow-bounce 1.2s infinite;
+}
+@keyframes arrow-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+/* Animate indicator on scroll */
+.scrolled .scroll-indicator {
+    left: -60px;
+    opacity: 0;
+    transition: left 0.4s, opacity 0.4s;
+}
+
+.accent-title {
+  position: relative;
+  display: inline-block;
+}
+
+.base-text {
+  color: var(--accent-color); /* solid green */
+  margin: 0;
+  transition: all 1s linear;
+  opacity: 0;
+}
+
+.shine-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  background: linear-gradient(
+    75deg,
+    transparent 0%,
+    rgba(255,255,255,0.95) 15%,
+    rgba(255,255,255,0.6) 25%,
+    transparent 35%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 6s linear infinite;
+  pointer-events: none; /* lets clicks pass through */
+  opacity: 0;
+}
+
+@keyframes shine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
